@@ -66,9 +66,9 @@
   </div>
   @push('script')
 <script>
-    window.addEventListener('close-moadl',event =>{
+    window.addEventListener('close-modal',event => {
         $('#deleteModal').modal('hide');
     });
 </script>
-      
+
   @endpush
