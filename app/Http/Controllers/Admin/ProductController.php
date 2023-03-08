@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -13,7 +14,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view('admin.products.index');
+        $products = Product::all();
+        return view('admin.products.index', compact('products'));
     }
     public function create()
     {
@@ -45,7 +47,7 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $uploadPath = '/uploads/products/';
+            $uploadPath = 'uploads/products/';
 
             $i = 1;
             foreach($request->file('image') as $imageFile){
@@ -64,5 +66,12 @@ class ProductController extends Controller
 
 
             return redirect('/admin/products')->with('message', 'Product Added Successfully');
+    }
+    public function FunctionName(int $product_id)
+    {
+        $categories = Category::all();
+        $brands = Brand::all();
+        $product = Product::findOrFail($product_id);
+        return view ('admin/products/edit', compact('categories', 'brands', 'product'));
     }
 }
