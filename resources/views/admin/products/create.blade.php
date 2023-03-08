@@ -33,7 +33,10 @@
                             <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details-tab-pane" type="button" role="tab" aria-controls="details-tab-pane" aria-selected="false">Details</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="image-tab" data-bs-toggle="tab" data-bs-target="#image-tab-pane" type="button" role="tab" aria-controls="image-tab-pane" aria-selected="false">Image</button>
+                            <button class="nav-link" id="image-tab" data-bs-toggle="tab" data-bs-target="#image-tab-pane" type="button" role="tab" aria-controls="image-tab-pane" aria-selected="false">Product Image</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="color-tab" data-bs-toggle="tab" data-bs-target="#color-tab-pane" type="button" role="tab" aria-controls="color-tab-pane" aria-selected="false">Product Colors</button>
                         </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -132,16 +135,42 @@
                         </div>
                         <div class="tab-pane fade border p-3" id="image-tab-pane" role="tabpanel" aria-labelledby="image-tab" tabindex="0">
 
-                        <div class="row">
-                            <div class="col-md-4">
-                             <div class="md-3">
-                                <label>Upload Product Images</label>
-                                <input type="file" multiple name="image[]" class="form-control" />
-                             </div>
-                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="md-3">
+                                        <label>Upload Product Images</label>
+                                        <input type="file" multiple name="image[]" class="form-control" />
+                                    </div>
+                                </div>
 
+                            </div>
                         </div>
-                        </div>
+                        <div class="tab-pane fade border p-3" id="color-tab-pane" role="tabpanel" aria-labelledby="color-tab" tabindex="0">
+
+                            <div class="row">
+                                    <div class="md-3">
+                                        <label>Select Color</label>
+                                        <hr/>
+                                        <div class="row">
+                                            @forelse ($colors as $coloritem )
+                                            <div class="col-md-3">
+                                                <div class="p-2 border mb-3">
+                                                    Color: <input type="checkbox" name="colors[{{ $coloritem->id }}]" value="{{ $coloritem->id }}" />
+                                                    {{ $coloritem->name }}
+                                                    <br/>
+                                                    Quantity: <input type="number" name="colorquantity[{{ $coloritem->id }}]" style="width:70px; border:1px solid" />
+                                                </div>
+                                            </div>
+                                            @empty
+                                            <div class="col-md-12">
+                                                <h5>No colors Found</h5>
+                                            </div>
+                                            @endforelse
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
 
                     <!-- Tabs End -->

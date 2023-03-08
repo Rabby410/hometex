@@ -45,6 +45,12 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="{{ url('admin/colors') }}">
+          <i class="mdi mdi-palette menu-icon"></i>
+          <span class="menu-title">Colors</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="mdi mdi-play-box-outline menu-icon"></i>
           <span class="menu-title">Home Slider</span>
