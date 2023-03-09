@@ -40,7 +40,10 @@
                             <button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#details-tab-pane" type="button" role="tab" aria-controls="details-tab-pane" aria-selected="false">Details</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="image-tab" data-bs-toggle="tab" data-bs-target="#image-tab-pane" type="button" role="tab" aria-controls="image-tab-pane" aria-selected="false">Image</button>
+                            <button class="nav-link" id="image-tab" data-bs-toggle="tab" data-bs-target="#image-tab-pane" type="button" role="tab" aria-controls="image-tab-pane" aria-selected="false">Product Image</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="color-tab" data-bs-toggle="tab" data-bs-target="#color-tab-pane" type="button" role="tab">Product Color</button>
                         </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -141,9 +144,9 @@
                             </div>
                         </div>
                         </div>
-                        <div class="tab-pane fade border p-3" id="image-tab-pane" role="tabpanel" aria-labelledby="image-tab" tabindex="0">
+                    <div class="tab-pane fade border p-3" id="image-tab-pane" role="tabpanel" aria-labelledby="image-tab"   tabindex="0">
 
-                        <div class="row">
+                            <div class="row">
                             <div class="col-md-12">
                              <div class="md-3">
                                 <label>Upload Product Images</label>
@@ -166,10 +169,74 @@
                                 @endif
                              </div>
                             </div>
+                        </div>
+                    </div>
+                        {{-- color --}}
+                        <div class="tab-pane fade border p-3" id="color-tab-pane" role="tabpanel" tabindex="0">
+
+                            <div class="row">
+                                <div class="md-3">
+                                    <h4>Add Product Color</h4>
+                                    <label>Select Color</label>
+                                    <hr/>
+                                    <div class="row">
+                                        @forelse ($colors as $coloritem )
+                                        <div class="col-md-3">
+                                            <div class="p-2 border mb-3">
+                                                Color: <input type="checkbox" name="colors[{{ $coloritem->id }}]" value="{{ $coloritem->id }}" />
+                                                {{ $coloritem->name }}
+                                                <br/>
+                                                Quantity: <input type="number" name="colorquantity[{{ $coloritem->id }}]" style="width:70px; border:1px solid" />
+                                            </div>
+                                        </div>
+                                        @empty
+                                        <div class="col-md-12">
+                                            <h5>No colors Found</h5>
+                                        </div>
+                                        @endforelse
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Color Name</th>
+                                                <th>Quantity</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($product->productColors as $prodColor)
+                                            <tr class="prod-color-tr">
+                                                <td>
+                                                    @if ($prodColor->color)
+                                                    {{ $prodColor->color->name }}
+                                                    @else
+                                                    No Color Found
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="input-group mb-3" style="width:150px">
+                                                    <input type="text" value="{{ $prodColor->quantity }}" class="productColorQuantity form-control form-control-sm" />
+                                                    <button type="button" value="{{ $prodColor->id }}" class="updateProductColorBtn btn btn-primary btn-sm text-white">Update</button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button type="button" value="{{ $prodColor->id }}" class="deleteProductColorBtn btn btn-danger btn-sm text-white">Delete</button>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
                         </div>
                         </div>
-                        </div>
+
+                        {{-- color --}}
+                    </div>
+                </div>
 
                     <!-- Tabs End -->
                     <div>
@@ -179,4 +246,7 @@
             </div>
         </div>
       </div>
+@endsection
+@section('scripts')
+
 @endsection
