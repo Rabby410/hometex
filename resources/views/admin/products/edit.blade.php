@@ -248,5 +248,43 @@
       </div>
 @endsection
 @section('scripts')
+      <script>
+        $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
+
+
+        $(document).ready(function(){
+            $(document).on('click', '.updateProductColorBtn', function(){
+
+                var product_id = "{{ $product->id }}";
+                var prod_color_id = $(this).val();
+                var qty = $(this).closest('.prod_color_tr').find('.productColorQuantity').val();
+                // alert(prod_color_id);
+
+                if(qty <= 0 ){
+                    alert('Quantity is Required');
+                    return false;
+                }
+
+                var data ={
+                    'product_id': product_id,
+                    'qty': qty
+                }
+
+                $.ajax({
+                    type:"POST",
+                    url:"/admin/product-color/{prod_color_id}" ,
+                    data: data,
+                    success: function(response){
+                        alert(response.message)
+                    };
+                });
+
+            });
+        });
+      </script>
 @endsection
